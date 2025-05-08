@@ -1,0 +1,18 @@
+name: envage
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - poetry
+  - pip
+  - pip:
+    - google-generativeai
+    - langgraph
+prefix: C:\Users\oscarpercival2\.conda\envs\envage
+
+#=================================================================================================
+# Con el siguiente comando, se recreal el archivo mientorno.yml a partir de las librerias instaladas 
+# que estan registradas en el directorio : C:\Users\<usuario>\miniconda3\envs\<tu_entorno>\conda-meta\
+#=================================================================================================
+#    conda env export > environment.yml

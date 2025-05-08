@@ -1,0 +1,12 @@
+{
+    "dependencies" : ["."],
+
+
+    "graphs" : {
+        "oscargraph" : "./app/agent.py:migraph",
+        "tools" : "./app/tools.py:graph",
+        "gemisdk" : "./app/agentgemi.py:graph"
+    },
+
+    "python_version" : "3.11"
+}
