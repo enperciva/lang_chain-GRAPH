@@ -31,7 +31,7 @@ os.environ["GOOGLE_API_KEY"] = os.getenv("GEMINI_API_KEY")
 os.environ["TAVILY_API_KEY"] = os.getenv("TAVILY_API_KEY")
 
 # Define the llm 
-llm =  ChatGoogleGenerativeAI (model="gemini-2.0-flash", temperature=0) 
+llm =  ChatGoogleGenerativeAI (model="gemini-2.0-flash", temperature=0.7) 
 
 tavily_search = TavilySearchResults(max_results=2)
 

@@ -1,29 +1,33 @@
-from typing import Annotated, TypedDict
+from sqlalchemy import create_engine, inspect
+import os
 
-# Esta función actuará como "metadato", decorador o marcador
-def add_messages(messages: list) -> list:
-    messages.append("Mensaje inicial del sistema")
-    return messages
 
-# TypedDict con Annotated
-class ChildState(TypedDict):
-    messages: Annotated[list, add_messages]
+import os
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 
-# Función que simula la creación del estado del agente
-def create_child_state() -> ChildState:
-    raw_messages = []
-    
-    # Accedemos al tipo anotado y ejecutamos la función `add_messages`
-    annotated_type = ChildState.__annotations__['messages']
-    
-    # Extraemos la función `add_messages` del tipo Annotated
-    base_type, metadata_fn = annotated_type.__origin__, annotated_type.__metadata__[0]
 
-    # Aplicamos el decorador a los mensajes
-    messages = metadata_fn(raw_messages)
-    
-    return ChildState(messages=messages)
+base_dir = os.path.dirname(os.path.abspath(__file__)) + os.sep
+db_path = os.path.join(base_dir, '../../dbs/', 'example.db') 
+engine = create_engine(f"sqlite:///{db_path}")
 
-# Ejecutamos
-estado = create_child_state()
-print(estado)
+print("base ---------------", base_dir)
+print("path -----------------", db_path)
+print("engine----------------------",engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()
+# Crear base declarativa
+#Base = declarative_base()
+
+inspector = inspect(engine)
+
+# Obtener nombres de todas las tablas
+tablas = inspector.get_table_names()
+print(tablas)
+
+# Obtener columnas de una tabla específica
+columnas = inspector.get_columns("orders")
+for columna in columnas:
+    print(columna["name"], columna["type"])
